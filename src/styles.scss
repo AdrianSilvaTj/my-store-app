@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Roboto:wght@300&display=swap');
+@import url(./styles/reset.scss);
+
+*{
+  font-family: 'Quicksand', sans-serif;
+}
+
+// Definimos que el elemento img del componente app-img, tendra esas caracteristicas cuando este dentro del
+// componente con la clase .products--grid
+.products--grid {
+  app-img {
+    img{
+      border-radius: 10px;
+      min-width: 100%;
+      min-height: 80%;
+    }
+  }
+}
