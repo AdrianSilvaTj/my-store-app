@@ -1,5 +1,5 @@
 <!-- (error) evento que sucede cuando ocurre algun error en la carga de la imagen -->
-<img [src]="img" (load)="imgLoaded()" (error)="imgError()" *ngIf="img; else elseImg">
+<img [src]="img" (load)="imgLoaded()" (error)="imgError()" *ngIf="img; else elseImg" alt="">
 <ng-template #elseImg>
-  <img width="400" [src]="imageDefault">
+  <img width="400" [src]="imageDefault" alt="">
 </ng-template>

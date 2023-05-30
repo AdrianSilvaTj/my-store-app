@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
-import { Product } from './models/product.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   imgParent = '';
   showImg = true;
 
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onImgLoaded(urlImg: string) {
-    console.log('log padre', urlImg);
+    //console.log('log padre', urlImg);
   }
 
-  toggleImg(){
+  toggleImg() {
     this.showImg = !this.showImg;
   }
 

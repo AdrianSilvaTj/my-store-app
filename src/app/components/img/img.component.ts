@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, AfterViewInit, OnDestroy, SimpleChanges } from '@angular/core';
 
 @Component({
@@ -7,13 +8,14 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, AfterViewIni
 })
 export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
-  img: string = '';
+  img ='';
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('img') // este sera el nombre que ira en el html
   // realizar alguna accion cuando cambie el valor de img
   set changeImg(newImg: string) {
     this.img = newImg;
-    console.log('change just img =>'), this.img;
+    //console.log('change just img =>',this.img);
 
     // code
   }
@@ -26,18 +28,20 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
   constructor(){
     // before render
     // No async -- once time
-    console.log('constructor', 'imgValue =>', this.img);
+    //console.log('constructor', 'imgValue =>', this.img);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ngOnChanges(changes: SimpleChanges) {
     // before - during render
     // changes inputs -- n time
-    console.log('ngOnChanges', 'imgValue =>', this.img);
+    //console.log('ngOnChanges', 'imgValue =>', this.img);
     // detectar cada cambio individualmente
-    console.log('Changes',changes);
+    //console.log('Changes',changes);
 
   }
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(){
     // before render
     // async, fetch -- once time
@@ -49,6 +53,7 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
     // }, 1000);
   }
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngAfterViewInit(){
     // after render
     // handler children
@@ -68,7 +73,7 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
   }
 
   imgLoaded() {
-    console.log('log hijo');
+    //console.log('log hijo');
     this.loaded.emit(this.img);
 
   }
