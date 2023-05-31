@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import Swal from 'sweetalert2';
+import { switchMap, zip } from 'rxjs';
+
 import { CreateProductDTO, Product } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
-import Swal from 'sweetalert2';
-import { switchMap, zip } from 'rxjs';
+
 
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss'],
 })
-export class ProductsListComponent implements OnInit {
-  products: Product[] = [];
+export class ProductsListComponent {
+  @Input() products: Product[] = [];
   myShoppingCart: Product[] = [];
   total = 0;
   today = new Date();
@@ -28,8 +30,7 @@ export class ProductsListComponent implements OnInit {
       name: '',
     },
   };
-  limit = 10;
-  offset = 0;
+
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
@@ -39,13 +40,6 @@ export class ProductsListComponent implements OnInit {
     this.myShoppingCart = this.storeService.getShoppingCart();
   }
 
-  ngOnInit() {
-    this.productsService
-      .getAllProducts(this.limit, this.offset)
-      .subscribe((data) => {
-        this.products = data;
-      });
-  }
 
   onAddToShoppingCart(product: Product) {
     this.storeService.addProduct(product);
@@ -158,12 +152,5 @@ export class ProductsListComponent implements OnInit {
     });
   }
 
-  loadMore() {
-    this.offset += this.limit;
-    this.productsService
-      .getAllProducts(this.limit, this.offset)
-      .subscribe((data) => {
-        this.products = this.products.concat(data);
-      });
-  }
+
 }

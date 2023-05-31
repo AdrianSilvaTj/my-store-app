@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Auth } from './../models/auth.model';
 import { User } from './../models/user.model';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +42,11 @@ export class AuthService {
     });
   }
 
-  setUserLog(userLog : User){
-    this.userLog.next(userLog)
+  loginAndGet(email:string, password:string){
+    return this.login(email, password)
+    .pipe(
+      switchMap(() => this.profile()),
+    )
   }
+
 }

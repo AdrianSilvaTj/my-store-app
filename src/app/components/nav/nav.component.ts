@@ -3,7 +3,9 @@ import { StoreService } from '../../services/store.service';
 import { AuthService } from './../../services/auth.service';
 import { UsersService } from './../../services/users.service';
 import { User } from '../../models/user.model';
-import { switchMap } from 'rxjs';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { Category } from 'src/app/models/category.model';
+
 
 @Component({
   selector: 'app-nav',
@@ -14,12 +16,13 @@ export class NavComponent implements OnInit {
   activeSideMenu = false;
   counter = 0;
   profile: User | null = null;
-  token = '';
+  categories: Category[] = [];
 
   constructor(
     private storeService: StoreService,
     private authService: AuthService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private categoriesService : CategoriesService
     ) {}
 
   ngOnInit(): void {
@@ -28,10 +31,7 @@ export class NavComponent implements OnInit {
     this.storeService.myCart$.subscribe(products => {
       this.counter = products.length;
     });
-
-    // this.authService.userLog$.subscribe(user => {
-    //   this.profile = user
-    // })
+    this.getAllCategories();
   }
 
   toggleSideMenu() {
@@ -51,13 +51,7 @@ export class NavComponent implements OnInit {
   }
 
   loginGetProfile(){
-    this.authService.login('adrian@mail.com', 'adrian1234')
-    .pipe(
-      switchMap((token) => {
-        this.token = token.access_token;
-        return this.authService.profile(token.access_token);
-      })
-    )
+    this.authService.loginAndGet('adrian@mail.com', 'adrian1234')
     .subscribe((user) => {
       console.log(user);
       this.profile = user;
@@ -65,18 +59,10 @@ export class NavComponent implements OnInit {
     });
   }
 
-  loginUser() {
-    this.authService.login('adrian@mail.com', 'adrian1234').subscribe((rta) => {
-      console.log(rta.access_token);
-      this.token = rta.access_token;
-    });
-  }
-
-  getProfile() {
-    this.authService.profile(this.token).subscribe((profile) => {
-      //console.log(profile);
-      this.authService.setUserLog(profile)
-    });
-  }
+ getAllCategories(){
+  this.categoriesService.getAll().subscribe((categories) => {
+    this.categories = categories;
+  })
+ }
 
 }

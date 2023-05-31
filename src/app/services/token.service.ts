@@ -11,6 +11,7 @@ export class TokenService {
   }
 
   getToken(){
+    // obtiene el token guardado en el Local Storage
     const token = localStorage.getItem('token');
     return token;
   }
