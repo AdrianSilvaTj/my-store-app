@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { SwiperModule } from 'swiper/angular';
+import { QuicklinkModule } from 'ngx-quicklink';
 
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -28,6 +29,12 @@ import { WebsiteRoutingModule } from './website-routing.module';
     ProductDetailComponent,
     LayoutComponent,
   ],
-  imports: [CommonModule, WebsiteRoutingModule, SharedModule, SwiperModule],
+  imports: [
+    CommonModule,
+    WebsiteRoutingModule,
+    SharedModule,
+    SwiperModule,
+    QuicklinkModule,
+  ],
 })
 export class WebsiteModule {}

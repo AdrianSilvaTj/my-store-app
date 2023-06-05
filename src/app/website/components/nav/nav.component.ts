@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StoreService } from './../../../services/store.service';
 import { AuthService } from './../../../services/auth.service';
 import { UsersService } from './../../../services/users.service';
@@ -22,7 +23,8 @@ export class NavComponent implements OnInit {
     private storeService: StoreService,
     private authService: AuthService,
     private usersService: UsersService,
-    private categoriesService : CategoriesService
+    private categoriesService : CategoriesService,
+    private router: Router,
     ) {}
 
   ngOnInit(): void {
@@ -32,6 +34,9 @@ export class NavComponent implements OnInit {
       this.counter = products.length;
     });
     this.getAllCategories();
+    this.authService.userLog$.subscribe(user => {
+      this.profile = user
+    })
   }
 
   toggleSideMenu() {
@@ -51,18 +56,23 @@ export class NavComponent implements OnInit {
   }
 
   loginGetProfile(){
-    this.authService.loginAndGet('adrian@mail.com', 'adrian1234')
-    .subscribe((user) => {
-      console.log(user);
-      this.profile = user;
-      //this.authService.setUserLog(user)
+    this.authService.loginAndGet('admin@mail.com', 'admin123')
+    .subscribe(() => {
+      // una vez hecho el login y obtenido el perfil, lo redirijimos a la pagina de profile
+      this.router.navigate(['/profile']);
     });
   }
 
- getAllCategories(){
-  this.categoriesService.getAll().subscribe((categories) => {
-    this.categories = categories;
-  })
- }
+  getAllCategories(){
+    this.categoriesService.getAll().subscribe((categories) => {
+      this.categories = categories;
+    })
+  }
+
+  logout(){
+    this.authService.logout();
+    this.profile = null;
+    this.router.navigate(['/home']);
+  }
 
 }

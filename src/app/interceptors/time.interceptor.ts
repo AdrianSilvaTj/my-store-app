@@ -27,8 +27,9 @@ export class TimeInterceptor implements HttpInterceptor {
       return next.handle(request)
       .pipe(
         tap(() =>{
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const time = (performance.now() - start) + 'ms';
-          console.log(request.url, time);
+          //console.log(request.url, time);
         })
       );
     }

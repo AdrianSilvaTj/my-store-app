@@ -39,7 +39,10 @@
           <button (click)="createUser()">Crear</button>
           <button (click)="loginGetProfile()">Login</button>
         </div>
-        <ng-template #elseBlock>{{ profile?.email }}</ng-template>
+        <ng-template #elseBlock>
+          <a routerLink="/profile">{{ profile?.email }}</a>
+          <button (click)="logout()">Logout</button>
+        </ng-template>
         </div>
       <div class="cart">
         <a href="">

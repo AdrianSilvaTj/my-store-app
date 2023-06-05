@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
     this.route.queryParamMap.subscribe((params) => {
       this.productId = params.get('product');
-      console.log(this.productId);
+      //console.log(this.productId);
 
     })
   }
